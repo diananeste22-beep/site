@@ -1,28 +1,13 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import Image from "next/image";
 import { FlickeringGrid } from "@/components/ui/flickering-grid";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
+import { LayoutTextFlip } from "@/components/ui/layout-text-flip";
 
 const ease = [0.22, 1, 0.36, 1] as const;
-const niches = ["\u0431\u0438\u0437\u043d\u0435\u0441\u0430", "\u0430\u0440\u0442\u0438\u0441\u0442\u043e\u0432", "\u0431\u0440\u0435\u043d\u0434\u043e\u0432"];
-
 export default function AnimatedHero() {
   const shouldReduceMotion = useReducedMotion();
-  const [activeNiche, setActiveNiche] = useState(0);
-
-  useEffect(() => {
-    if (shouldReduceMotion) {
-      return;
-    }
-
-    const intervalId = window.setInterval(() => {
-      setActiveNiche((current) => (current + 1) % niches.length);
-    }, 2200);
-
-    return () => window.clearInterval(intervalId);
-  }, [shouldReduceMotion]);
 
   const instant = shouldReduceMotion ? { duration: 0 } : undefined;
   const introTransition = instant ?? { duration: 0.45, ease };
@@ -30,7 +15,6 @@ export default function AnimatedHero() {
   const titleSettleTransition = instant ?? { duration: 0.65, delay: 1.1, ease };
   const photoTransition = instant ?? { duration: 0.65, delay: 1.35, ease };
   const supportTransition = instant ?? { duration: 0.45, delay: 1.75, ease };
-  const wordTransition = instant ?? { duration: 0.52, ease };
 
   return (
     <section className="relative isolate min-h-[720px] overflow-hidden bg-[#f1f0ec] px-5 pb-14 pt-28 sm:px-8 lg:min-h-screen lg:px-12 lg:pb-12 lg:pt-24">
@@ -66,22 +50,22 @@ export default function AnimatedHero() {
             transition={titleInTransition}
           >
             <span className="block whitespace-nowrap">{"\u0414\u0435\u043b\u0430\u044e \u0434\u0438\u0437\u0430\u0439\u043d"}</span>
-            <span className="hero-niche-row mt-3 flex items-baseline gap-[0.18em] whitespace-nowrap">
-              <span>{"\u0434\u043b\u044f"}</span>
-              <span className="hero-niche-mask text-[#2d63fc]" aria-live="polite">
-                <AnimatePresence mode="wait" initial={false}>
-                  <motion.span
-                    key={niches[activeNiche]}
-                    className="hero-niche-word"
-                    initial={shouldReduceMotion ? false : { opacity: 0, y: 28, filter: "blur(14px)" }}
-                    animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                    exit={shouldReduceMotion ? undefined : { opacity: 0, y: -24, filter: "blur(14px)" }}
-                    transition={wordTransition}
-                  >
-                    {niches[activeNiche]}
-                  </motion.span>
-                </AnimatePresence>
-              </span>
+            <span className="hero-niche-row mt-3 block whitespace-nowrap">
+              {shouldReduceMotion ? (
+                <span className="inline-flex items-baseline gap-[0.18em]">
+                  <span>{"\u0434\u043b\u044f"}</span>
+                  <span className="text-[#2d63fc]">{"\u0431\u0438\u0437\u043d\u0435\u0441\u0430"}</span>
+                </span>
+              ) : (
+                <LayoutTextFlip
+                  text={"\u0434\u043b\u044f"}
+                  words={["\u0431\u0438\u0437\u043d\u0435\u0441\u0430", "\u0431\u0440\u0435\u043d\u0434\u043e\u0432", "\u0430\u0440\u0442\u0438\u0441\u0442\u043e\u0432"]}
+                  duration={2200}
+                  className="hero-layout-flip"
+                  textClassName="!text-[inherit] !font-black !leading-[0.9] !tracking-normal !drop-shadow-none"
+                  wordClassName="!rounded-none !border-0 !bg-transparent !p-0 !text-[inherit] !font-black !leading-[0.9] !tracking-normal !text-[#2d63fc] !shadow-none !ring-0 !drop-shadow-none"
+                />
+              )}
             </span>
           </motion.h1>
 

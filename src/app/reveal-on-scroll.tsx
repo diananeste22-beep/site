@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useEffect } from "react";
 
@@ -29,17 +29,31 @@ export default function RevealOnScroll() {
     const anchorLinks = Array.from(document.querySelectorAll<HTMLAnchorElement>("a[href^='#']"));
     const navTargets = navLinks
       .map((link) => {
-        const id = link.hash.slice(1);
+        const id = decodeURIComponent(link.hash.slice(1));
         const element = document.getElementById(id);
         return element ? { id, link, element } : null;
       })
       .filter((item): item is { id: string; link: HTMLAnchorElement; element: HTMLElement } => Boolean(item));
 
-    const scrollDuration = 680;
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const headerOffset = 82;
     let rafId = 0;
     let scrollAnimationId = 0;
+    let isProgrammaticScroll = false;
+
+    const setActiveLink = (activeId?: string) => {
+      navTargets.forEach(({ id, link }) => {
+        const isActive = id === activeId;
+        link.dataset.active = isActive ? "true" : "false";
+        link.setAttribute("aria-current", isActive ? "page" : "false");
+      });
+    };
 
     const updateActiveLink = () => {
+      if (isProgrammaticScroll) {
+        return;
+      }
+
       const pivot = window.scrollY + 130;
       let activeId = navTargets[0]?.id;
 
@@ -53,11 +67,7 @@ export default function RevealOnScroll() {
         activeId = navTargets.at(-1)?.id ?? activeId;
       }
 
-      navTargets.forEach(({ id, link }) => {
-        const isActive = id === activeId;
-        link.dataset.active = isActive ? "true" : "false";
-        link.setAttribute("aria-current", isActive ? "page" : "false");
-      });
+      setActiveLink(activeId);
     };
 
     const requestActiveLinkUpdate = () => {
@@ -65,14 +75,50 @@ export default function RevealOnScroll() {
       rafId = window.requestAnimationFrame(updateActiveLink);
     };
 
-    updateActiveLink();
+    const easeOutQuart = (progress: number) => 1 - Math.pow(1 - progress, 4);
 
-    const easeInOutCubic = (progress: number) =>
-      progress < 0.5 ? 4 * progress * progress * progress : 1 - Math.pow(-2 * progress + 2, 3) / 2;
+    const scrollToTarget = (link: HTMLAnchorElement, target: HTMLElement, id: string) => {
+      const maxY = document.documentElement.scrollHeight - window.innerHeight;
+      const startY = window.scrollY;
+      const targetY = Math.max(0, Math.min(maxY, target.getBoundingClientRect().top + window.scrollY - headerOffset));
+      const distance = targetY - startY;
+
+      window.cancelAnimationFrame(scrollAnimationId);
+      setActiveLink(id);
+
+      if (prefersReducedMotion || Math.abs(distance) < 4) {
+        window.scrollTo(0, targetY);
+        history.replaceState(null, "", link.hash);
+        isProgrammaticScroll = false;
+        requestActiveLinkUpdate();
+        return;
+      }
+
+      const duration = Math.min(820, Math.max(420, Math.abs(distance) * 0.42));
+      const startTime = performance.now();
+      isProgrammaticScroll = true;
+
+      const step = (time: number) => {
+        const progress = Math.min((time - startTime) / duration, 1);
+        window.scrollTo(0, startY + distance * easeOutQuart(progress));
+
+        if (progress < 1) {
+          scrollAnimationId = window.requestAnimationFrame(step);
+          return;
+        }
+
+        window.scrollTo(0, targetY);
+        history.replaceState(null, "", link.hash);
+        isProgrammaticScroll = false;
+        requestActiveLinkUpdate();
+      };
+
+      scrollAnimationId = window.requestAnimationFrame(step);
+    };
 
     const handleAnchorClick = (event: MouseEvent) => {
       const link = event.currentTarget as HTMLAnchorElement;
-      const id = link.hash.slice(1);
+      const id = decodeURIComponent(link.hash.slice(1));
       const target = document.getElementById(id);
 
       if (!target) {
@@ -80,36 +126,10 @@ export default function RevealOnScroll() {
       }
 
       event.preventDefault();
-
-      const startY = window.scrollY;
-      const targetY = target.getBoundingClientRect().top + window.scrollY - 82;
-      const distance = targetY - startY;
-      const duration = scrollDuration;
-      const startTime = performance.now();
-
-      navTargets.forEach(({ id: navId, link: navLink }) => {
-        const isActive = navId === id;
-        navLink.dataset.active = isActive ? "true" : "false";
-        navLink.setAttribute("aria-current", isActive ? "page" : "false");
-      });
-
-      window.cancelAnimationFrame(scrollAnimationId);
-
-      const step = (time: number) => {
-        const progress = Math.min((time - startTime) / duration, 1);
-        window.scrollTo(0, startY + distance * easeInOutCubic(progress));
-
-        if (progress < 1) {
-          scrollAnimationId = window.requestAnimationFrame(step);
-        } else {
-          history.pushState(null, "", link.hash);
-          requestActiveLinkUpdate();
-        }
-      };
-
-      scrollAnimationId = window.requestAnimationFrame(step);
+      scrollToTarget(link, target, id);
     };
 
+    updateActiveLink();
     anchorLinks.forEach((link) => link.addEventListener("click", handleAnchorClick));
     window.addEventListener("scroll", requestActiveLinkUpdate, { passive: true });
     window.addEventListener("resize", requestActiveLinkUpdate);
@@ -127,4 +147,3 @@ export default function RevealOnScroll() {
 
   return null;
 }
-
