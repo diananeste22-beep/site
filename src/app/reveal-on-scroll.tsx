@@ -2,6 +2,11 @@
 
 import { useEffect } from "react";
 
+/*
+ * Scroll-reveal + подсветка активного пункта навигации.
+ * Прокрутка к якорям — нативная: html { scroll-behavior: smooth } + scroll-padding-top,
+ * без JS-анимации (двойное сглаживание ломало докрутку).
+ */
 export default function RevealOnScroll() {
   useEffect(() => {
     const root = document.documentElement;
@@ -26,7 +31,6 @@ export default function RevealOnScroll() {
     targets.forEach((target) => observer.observe(target));
 
     const navLinks = Array.from(document.querySelectorAll<HTMLAnchorElement>(".toolbar-link[href^='#']"));
-    const anchorLinks = Array.from(document.querySelectorAll<HTMLAnchorElement>("a[href^='#']"));
     const navTargets = navLinks
       .map((link) => {
         const id = decodeURIComponent(link.hash.slice(1));
@@ -35,11 +39,7 @@ export default function RevealOnScroll() {
       })
       .filter((item): item is { id: string; link: HTMLAnchorElement; element: HTMLElement } => Boolean(item));
 
-    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const headerOffset = 82;
     let rafId = 0;
-    let scrollAnimationId = 0;
-    let isProgrammaticScroll = false;
 
     const setActiveLink = (activeId?: string) => {
       navTargets.forEach(({ id, link }) => {
@@ -50,15 +50,13 @@ export default function RevealOnScroll() {
     };
 
     const updateActiveLink = () => {
-      if (isProgrammaticScroll) {
-        return;
-      }
-
-      const pivot = window.scrollY + 130;
+      // document-level координаты: offsetTop здесь непригоден,
+      // секции лежат внутри position: relative рамки
+      const pivot = 140;
       let activeId = navTargets[0]?.id;
 
       navTargets.forEach(({ id, element }) => {
-        if (element.offsetTop <= pivot) {
+        if (element.getBoundingClientRect().top <= pivot) {
           activeId = id;
         }
       });
@@ -75,70 +73,21 @@ export default function RevealOnScroll() {
       rafId = window.requestAnimationFrame(updateActiveLink);
     };
 
-    const easeOutQuart = (progress: number) => 1 - Math.pow(1 - progress, 4);
-
-    const scrollToTarget = (link: HTMLAnchorElement, target: HTMLElement, id: string) => {
-      const maxY = document.documentElement.scrollHeight - window.innerHeight;
-      const startY = window.scrollY;
-      const targetY = Math.max(0, Math.min(maxY, target.getBoundingClientRect().top + window.scrollY - headerOffset));
-      const distance = targetY - startY;
-
-      window.cancelAnimationFrame(scrollAnimationId);
-      setActiveLink(id);
-
-      if (prefersReducedMotion || Math.abs(distance) < 4) {
-        window.scrollTo(0, targetY);
-        history.replaceState(null, "", link.hash);
-        isProgrammaticScroll = false;
-        requestActiveLinkUpdate();
-        return;
-      }
-
-      const duration = Math.min(820, Math.max(420, Math.abs(distance) * 0.42));
-      const startTime = performance.now();
-      isProgrammaticScroll = true;
-
-      const step = (time: number) => {
-        const progress = Math.min((time - startTime) / duration, 1);
-        window.scrollTo(0, startY + distance * easeOutQuart(progress));
-
-        if (progress < 1) {
-          scrollAnimationId = window.requestAnimationFrame(step);
-          return;
-        }
-
-        window.scrollTo(0, targetY);
-        history.replaceState(null, "", link.hash);
-        isProgrammaticScroll = false;
-        requestActiveLinkUpdate();
-      };
-
-      scrollAnimationId = window.requestAnimationFrame(step);
-    };
-
-    const handleAnchorClick = (event: MouseEvent) => {
+    // мгновенная подсветка по клику, дальше скролл-трекер сам подхватит
+    const handleNavClick = (event: MouseEvent) => {
       const link = event.currentTarget as HTMLAnchorElement;
-      const id = decodeURIComponent(link.hash.slice(1));
-      const target = document.getElementById(id);
-
-      if (!target) {
-        return;
-      }
-
-      event.preventDefault();
-      scrollToTarget(link, target, id);
+      setActiveLink(decodeURIComponent(link.hash.slice(1)));
     };
 
     updateActiveLink();
-    anchorLinks.forEach((link) => link.addEventListener("click", handleAnchorClick));
+    navLinks.forEach((link) => link.addEventListener("click", handleNavClick));
     window.addEventListener("scroll", requestActiveLinkUpdate, { passive: true });
     window.addEventListener("resize", requestActiveLinkUpdate);
 
     return () => {
       observer.disconnect();
       window.cancelAnimationFrame(rafId);
-      window.cancelAnimationFrame(scrollAnimationId);
-      anchorLinks.forEach((link) => link.removeEventListener("click", handleAnchorClick));
+      navLinks.forEach((link) => link.removeEventListener("click", handleNavClick));
       window.removeEventListener("scroll", requestActiveLinkUpdate);
       window.removeEventListener("resize", requestActiveLinkUpdate);
       root.classList.remove("reveal-ready");

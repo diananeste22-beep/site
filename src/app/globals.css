@@ -1,9 +1,11 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f1f0ec;
-  --foreground: #272727;
+  --background: #f1f8ff;
+  --foreground: #0b0b0b;
   --accent: #2d63fc;
+  /* Unified block radius shared by frame, cards and popups */
+  --radius-block: 26px;
 }
 
 @theme inline {
@@ -32,7 +34,7 @@ body {
 
 ::selection {
   background: var(--accent);
-  color: #f1f0ec;
+  color: #f1f8ff;
 }
 
 h1,
@@ -62,138 +64,8 @@ img {
   mix-blend-mode: multiply;
 }
 
-.hero-niche-mask {
-  position: relative;
-  display: inline-block;
-  min-width: 5.65em;
-  height: 0.98em;
-  overflow: hidden;
-  vertical-align: baseline;
-  clip-path: inset(-0.18em 0 -0.16em 0);
-}
-
-.hero-niche-word {
-  position: absolute;
-  left: 0;
-  top: 0;
-  display: block;
-  line-height: 0.98;
-  white-space: nowrap;
-  will-change: opacity, transform, filter;
-}
-
-
-
 .section-band {
   position: relative;
-}
-
-.services-surface,
-.workflow-surface,
-.portfolio-surface {
-  position: relative;
-  overflow: hidden;
-}
-
-.services-surface::before,
-.workflow-surface::before,
-.portfolio-surface::before {
-  position: absolute;
-  inset: 0;
-  content: "";
-  pointer-events: none;
-  border-radius: inherit;
-  background:
-    linear-gradient(135deg, rgba(45, 99, 252, 0.1), transparent 34%),
-    linear-gradient(0deg, rgba(241, 240, 236, 0.72), rgba(241, 240, 236, 0));
-  opacity: 0.78;
-}
-
-.services-surface > *,
-.workflow-surface > *,
-.portfolio-surface > * {
-  position: relative;
-  z-index: 1;
-}
-
-.service-card > .relative,
-.service-card .aspect-\[16\/10\] {
-  position: relative;
-}
-
-.service-card .aspect-\[16\/10\] {
-  overflow: hidden;
-}
-
-.service-chip {
-  min-height: 48px;
-  transition: border-color 220ms ease, background-color 220ms ease, color 220ms ease, transform 220ms ease;
-}
-
-.service-card:hover .service-chip {
-  border-color: rgba(45, 99, 252, 0.22);
-  background: rgba(45, 99, 252, 0.08);
-}
-
-.service-toolkit {
-  isolation: isolate;
-}
-
-.service-toolkit::before {
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  content: "";
-  background:
-    linear-gradient(90deg, rgba(241, 240, 236, 0.1) 1px, transparent 1px),
-    linear-gradient(0deg, rgba(241, 240, 236, 0.1) 1px, transparent 1px);
-  background-size: 28px 28px;
-  mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.85), transparent 78%);
-}
-
-.workflow-poster {
-  isolation: isolate;
-}
-
-.workflow-poster::before {
-  position: absolute;
-  inset: auto 1.5rem 1.5rem 1.5rem;
-  z-index: -1;
-  height: 42%;
-  content: "";
-  border-radius: 8px;
-  background:
-    repeating-linear-gradient(135deg, rgba(45, 99, 252, 0.22) 0 2px, transparent 2px 14px),
-    linear-gradient(135deg, rgba(45, 99, 252, 0.16), rgba(39, 39, 39, 0.08));
-}
-
-.workflow-orbit span {
-  transition: transform 260ms ease, background-color 260ms ease;
-}
-
-.workflow-poster:hover .workflow-orbit span:nth-child(1) {
-  transform: translateY(-4px);
-}
-
-.workflow-poster:hover .workflow-orbit span:nth-child(2) {
-  transform: translateY(4px);
-}
-
-.workflow-poster:hover .workflow-orbit span:nth-child(3) {
-  transform: translateY(-4px);
-  background: #2d63fc;
-}
-
-.workflow-section .workflow-step-card:hover h3 {
-  color: inherit;
-}
-
-.workflow-section .workflow-step-card::after {
-  background: #f1f0ec;
-}
-
-.workflow-section .workflow-step-card:last-child::after {
-  background: #272727;
 }
 
 .service-tile,
@@ -260,7 +132,7 @@ img {
 .workflow-step-card:hover,
 .portfolio-card:hover {
   transform: translateY(-3px);
-  box-shadow: 0 18px 48px rgba(39, 39, 39, 0.07);
+  box-shadow: 0 18px 48px rgba(11, 11, 11, 0.07);
 }
 
 .service-tile:hover::after,
@@ -281,15 +153,6 @@ img {
   color: #2d63fc;
 }
 
-.contact-link span {
-  color: #2d63fc;
-}
-
-.contact-link:hover span {
-  color: #f1f0ec;
-}
-
-
 .services-bento {
   position: relative;
   overflow: hidden;
@@ -302,8 +165,8 @@ img {
   pointer-events: none;
   background:
     radial-gradient(circle at 16% 12%, rgba(45, 99, 252, 0.16), transparent 28%),
-    linear-gradient(90deg, rgba(241, 240, 236, 0.045) 1px, transparent 1px),
-    linear-gradient(0deg, rgba(241, 240, 236, 0.04) 1px, transparent 1px);
+    linear-gradient(90deg, rgba(241, 248, 255, 0.045) 1px, transparent 1px),
+    linear-gradient(0deg, rgba(241, 248, 255, 0.04) 1px, transparent 1px);
   background-size: auto, 40px 40px, 40px 40px;
   opacity: 0.74;
 }
@@ -316,7 +179,7 @@ img {
 .service-bento-panel {
   position: relative;
   overflow: hidden;
-  box-shadow: inset 0 1px 0 rgba(241, 240, 236, 0.04);
+  box-shadow: inset 0 1px 0 rgba(241, 248, 255, 0.04);
 }
 
 .service-bento-panel::after {
@@ -324,7 +187,7 @@ img {
   inset: 0;
   content: "";
   pointer-events: none;
-  background: linear-gradient(135deg, rgba(241, 240, 236, 0.055), transparent 38%);
+  background: linear-gradient(135deg, rgba(241, 248, 255, 0.055), transparent 38%);
   opacity: 0.72;
 }
 
@@ -335,126 +198,7 @@ img {
 
 .service-bento-panel-interactive:hover {
   transform: translateY(-2px);
-  box-shadow: 0 22px 56px rgba(0, 0, 0, 0.24), inset 0 1px 0 rgba(45, 99, 252, 0.2);
-}
-
-.service-chat-scene {
-  display: grid;
-  gap: 12px;
-  max-width: 520px;
-  padding-top: 54px;
-}
-
-.service-chat-row {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.service-chat-row-right {
-  justify-content: flex-end;
-  padding-right: 24px;
-}
-
-.service-avatar {
-  display: grid;
-  width: 30px;
-  height: 30px;
-  flex: 0 0 30px;
-  place-items: center;
-  border-radius: 999px;
-  background: #f1f0ec;
-  color: #272727;
-  font-size: 11px;
-  font-weight: 900;
-}
-
-.service-avatar-blue {
-  background: #2d63fc;
-  color: #f1f0ec;
-}
-
-.service-avatar-green {
-  background: #19c689;
-  color: #07110d;
-}
-
-.service-bubble {
-  max-width: 78%;
-  border-radius: 8px;
-  background: rgba(241, 240, 236, 0.12);
-  padding: 10px 14px;
-  color: rgba(241, 240, 236, 0.9);
-  font-size: 14px;
-  font-weight: 700;
-  line-height: 1.2;
-}
-
-.service-bubble-accent {
-  background: rgba(45, 99, 252, 0.9);
-  color: #f1f0ec;
-}
-
-.service-folder-scene {
-  position: relative;
-  min-height: 210px;
-  display: grid;
-  place-items: center;
-  background:
-    repeating-linear-gradient(0deg, transparent 0 19px, rgba(241, 240, 236, 0.08) 20px),
-    linear-gradient(90deg, transparent, rgba(45, 99, 252, 0.13), transparent);
-  mask-image: linear-gradient(90deg, transparent, #000 14%, #000 86%, transparent);
-}
-
-.service-folder-back,
-.service-folder-front {
-  position: absolute;
-  border-radius: 9px;
-  background: linear-gradient(180deg, #ffb000, #ff9500);
-  box-shadow: 0 22px 38px rgba(255, 160, 0, 0.13);
-}
-
-.service-folder-back {
-  width: 106px;
-  height: 72px;
-  transform: translate(-18px, -8px);
-  opacity: 0.72;
-}
-
-.service-folder-front {
-  display: flex;
-  width: 132px;
-  height: 82px;
-  align-items: flex-start;
-  justify-content: center;
-  gap: 8px;
-  padding-top: 14px;
-  transform: translateY(14px);
-}
-
-.service-folder-front span {
-  width: 30px;
-  height: 36px;
-  border-radius: 5px;
-  background: rgba(241, 240, 236, 0.86);
-  border: 2px solid rgba(45, 99, 252, 0.7);
-}
-
-.service-track-line {
-  position: absolute;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(45, 99, 252, 0.8), transparent);
-}
-
-.service-track-line-one {
-  width: 72%;
-  transform: translateY(-16px);
-}
-
-.service-track-line-two {
-  width: 54%;
-  transform: translateY(34px);
-  opacity: 0.7;
+  box-shadow: 0 22px 56px rgba(11, 11, 11, 0.24), inset 0 1px 0 rgba(45, 99, 252, 0.2);
 }
 
 .service-stack-panel {
@@ -475,7 +219,7 @@ img {
   border-radius: 8px;
   display: flex;
   align-items: center;
-  border: 1px solid rgba(241, 240, 236, 0.1);
+  border: 1px solid rgba(241, 248, 255, 0.1);
   padding: 11px 14px;
   font-size: 13px;
   font-weight: 850;
@@ -483,245 +227,14 @@ img {
 }
 
 .service-tool-pill {
-  background: rgba(241, 240, 236, 0.08);
-  color: rgba(241, 240, 236, 0.9);
-}
-
-.service-check-pill {
-  background: rgba(45, 99, 252, 0.1);
-  color: rgba(241, 240, 236, 0.68);
+  background: rgba(241, 248, 255, 0.08);
+  color: rgba(241, 248, 255, 0.9);
 }
 
 @media (max-width: 767px) {
-  .service-chat-scene {
-    padding-top: 10px;
-  }
 
   .service-tools-grid {
     grid-template-columns: 1fr;
-  }
-}
-
-
-.services-white-grid {
-  opacity: 0.7;
-  mix-blend-mode: screen;
-}
-
-.workflow-bento {
-  position: relative;
-  overflow: hidden;
-}
-
-.workflow-bento::before {
-  position: absolute;
-  inset: 0;
-  content: "";
-  pointer-events: none;
-  background:
-    radial-gradient(circle at 84% 18%, rgba(45, 99, 252, 0.18), transparent 28%),
-    linear-gradient(90deg, rgba(241, 240, 236, 0.045) 1px, transparent 1px),
-    linear-gradient(0deg, rgba(241, 240, 236, 0.04) 1px, transparent 1px);
-  background-size: auto, 40px 40px, 40px 40px;
-  opacity: 0.72;
-}
-
-.workflow-bento > * {
-  position: relative;
-  z-index: 1;
-}
-
-.workflow-bento-panel {
-  position: relative;
-  overflow: hidden;
-  box-shadow: inset 0 1px 0 rgba(241, 240, 236, 0.04);
-}
-
-.workflow-bento-panel::after {
-  position: absolute;
-  inset: 0;
-  content: "";
-  pointer-events: none;
-  background: linear-gradient(135deg, rgba(241, 240, 236, 0.055), transparent 38%);
-  opacity: 0.72;
-}
-
-.workflow-bento-panel > * {
-  position: relative;
-  z-index: 1;
-}
-
-.workflow-bento-panel-interactive:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 22px 56px rgba(0, 0, 0, 0.24), inset 0 1px 0 rgba(45, 99, 252, 0.2);
-}
-
-.workflow-brief-scene,
-.workflow-design-scene {
-  position: relative;
-  min-height: 210px;
-  overflow: hidden;
-  border-radius: 8px;
-  background:
-    repeating-linear-gradient(0deg, transparent 0 19px, rgba(241, 240, 236, 0.07) 20px),
-    linear-gradient(90deg, transparent, rgba(45, 99, 252, 0.11), transparent);
-  mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
-}
-
-.workflow-note-card {
-  position: absolute;
-  border: 1px solid rgba(241, 240, 236, 0.12);
-  border-radius: 8px;
-  background: rgba(241, 240, 236, 0.1);
-  color: rgba(241, 240, 236, 0.9);
-}
-
-.workflow-note-card-main {
-  left: 12%;
-  top: 52px;
-  display: grid;
-  width: 160px;
-  height: 104px;
-  align-content: center;
-  gap: 10px;
-  padding: 18px;
-}
-
-.workflow-note-card-main span {
-  width: fit-content;
-  border-radius: 6px;
-  background: #2d63fc;
-  padding: 6px 9px;
-  font-size: 12px;
-  font-weight: 900;
-  line-height: 1;
-}
-
-.workflow-note-card-main strong {
-  font-size: 24px;
-  line-height: 1;
-}
-
-.workflow-note-card-small {
-  right: 14%;
-  top: 86px;
-  padding: 12px 16px;
-  font-size: 13px;
-  font-weight: 850;
-}
-
-.workflow-note-card-line {
-  left: 28%;
-  right: 18%;
-  top: 128px;
-  height: 1px;
-  border: 0;
-  background: linear-gradient(90deg, transparent, rgba(45, 99, 252, 0.8), transparent);
-}
-
-.workflow-design-scene {
-  display: grid;
-  place-items: center;
-}
-
-.workflow-design-dot {
-  position: absolute;
-  width: 18px;
-  height: 18px;
-  border-radius: 999px;
-  background: #2d63fc;
-  opacity: 0.84;
-}
-
-.workflow-design-dot:nth-child(1) {
-  left: 18%;
-  top: 32%;
-}
-
-.workflow-design-dot:nth-child(2) {
-  right: 20%;
-  top: 24%;
-  background: #f1f0ec;
-}
-
-.workflow-design-dot:nth-child(3) {
-  right: 26%;
-  bottom: 26%;
-  background: #ffb000;
-}
-
-.workflow-design-window {
-  display: grid;
-  width: min(72%, 280px);
-  gap: 10px;
-  border-radius: 10px;
-  border: 1px solid rgba(241, 240, 236, 0.12);
-  background: rgba(241, 240, 236, 0.08);
-  padding: 22px;
-}
-
-.workflow-design-window i {
-  display: block;
-  height: 10px;
-  border-radius: 999px;
-  background: rgba(241, 240, 236, 0.28);
-}
-
-.workflow-design-window i:nth-child(1) {
-  width: 70%;
-  background: #2d63fc;
-}
-
-.workflow-design-window i:nth-child(2) {
-  width: 92%;
-}
-
-.workflow-design-window i:nth-child(3) {
-  width: 56%;
-  background: rgba(255, 176, 0, 0.72);
-}
-
-.workflow-design-window i:nth-child(4) {
-  width: 82%;
-}
-
-.workflow-final-panel {
-  background:
-    linear-gradient(90deg, rgba(45, 99, 252, 0.12), transparent 28%),
-    #0b0b0b;
-}
-
-.workflow-meta-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 10px;
-}
-
-.workflow-meta-pill {
-  min-height: 48px;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  border: 1px solid rgba(241, 240, 236, 0.1);
-  background: rgba(241, 240, 236, 0.08);
-  padding: 11px 14px;
-  color: rgba(241, 240, 236, 0.82);
-  font-size: 13px;
-  font-weight: 850;
-  line-height: 1.1;
-}
-
-@media (max-width: 767px) {
-  .workflow-meta-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .workflow-note-card-main {
-    left: 8%;
-  }
-
-  .workflow-note-card-small {
-    right: 8%;
   }
 }
 
@@ -736,24 +249,24 @@ footer {
 }
 
 .toolbar-link {
-  color: rgba(241, 240, 236, 0.72);
+  color: rgba(241, 248, 255, 0.72);
 }
 
 .toolbar-link:hover {
-  background: rgba(241, 240, 236, 0.12);
-  color: #f1f0ec;
+  background: rgba(241, 248, 255, 0.12);
+  color: #f1f8ff;
 }
 
 .toolbar-link[data-active="true"] {
-  background: #f1f0ec;
-  color: #272727;
+  background: #f1f8ff;
+  color: #0b0b0b;
 }
 
 .accent-swipe {
   position: relative;
   display: inline-block;
   z-index: 0;
-  color: #272727;
+  color: #0b0b0b;
   white-space: nowrap;
 }
 
@@ -768,82 +281,6 @@ footer {
   background: #2d63fc;
   clip-path: polygon(0 18%, 100% 5%, 98% 92%, 2% 82%);
   transform: rotate(1.4deg);
-}
-
-.accent-swipe-small::before {
-  bottom: -0.02em;
-  height: 0.9em;
-  transform: rotate(-1.2deg);
-}
-
-.niche-rotator {
-  position: relative;
-  display: inline-block;
-  height: 1.1em;
-  min-width: 5.45em;
-  overflow: hidden;
-  color: #2d63fc;
-  vertical-align: baseline;
-  transform: translateY(0.02em);
-  clip-path: inset(-0.12em 0 -0.12em 0);
-  contain: paint;
-}
-
-.niche-track {
-  position: absolute;
-  inset: 0;
-  display: block;
-}
-
-.niche-word {
-  position: absolute;
-  left: 0;
-  top: 0;
-  display: block;
-  line-height: 1.04;
-  opacity: 0;
-  transform: translateY(0.22em);
-  animation: niche-word 5.4s cubic-bezier(0.22, 1, 0.36, 1) infinite;
-  white-space: nowrap;
-  will-change: opacity, transform, filter;
-}
-
-.niche-word:nth-child(2) {
-  animation-delay: 1.8s;
-}
-
-.niche-word:nth-child(3) {
-  animation-delay: 3.6s;
-}
-
-@keyframes niche-word {
-  0% {
-    opacity: 0;
-    transform: translateY(0.22em);
-    filter: blur(12px);
-  }
-  9%, 30% {
-    opacity: 1;
-    transform: translateY(0);
-    filter: blur(0);
-  }
-  42%, 100% {
-    opacity: 0;
-    transform: translateY(-0.2em);
-    filter: blur(12px);
-  }
-}
-
-.hero-title-line {
-  display: flex;
-  align-items: flex-end;
-  gap: 0.2em;
-  line-height: 1.04;
-  padding-bottom: 0.02em;
-}
-
-.hero-static-word {
-  line-height: 1.04;
 }
 
 .hero-photo-wrap {
@@ -901,29 +338,29 @@ footer {
 .services-section {
   min-height: 100vh;
   margin: 0;
-  border: 1px solid rgba(19, 19, 19, 0.92);
+  border: 1px solid rgba(11, 11, 11, 0.92);
   border-radius: 28px;
   background:
     linear-gradient(180deg, rgba(45, 99, 252, 0.1), transparent 34%),
-    #050505;
-  color: #f1f0ec;
+    #0b0b0b;
+  color: #f1f8ff;
   box-shadow:
-    inset 0 1px 0 rgba(241, 240, 236, 0.08),
-    0 26px 80px rgba(19, 19, 19, 0.16);
+    inset 0 1px 0 rgba(241, 248, 255, 0.08),
+    0 26px 80px rgba(11, 11, 11, 0.16);
 }
 
 .services-section .section-heading h2 {
-  color: #f1f0ec;
+  color: #f1f8ff;
 }
 
 .services-section .section-heading p:last-child {
-  color: rgba(241, 240, 236, 0.62);
+  color: rgba(241, 248, 255, 0.62);
 }
 
 .services-section .services-bento {
   border-radius: 20px;
-  border: 1px solid rgba(241, 240, 236, 0.12);
-  background: rgba(8, 8, 8, 0.92);
+  border: 1px solid rgba(241, 248, 255, 0.12);
+  background: rgba(11, 11, 11, 0.92);
   padding: 12px;
 }
 
@@ -934,3 +371,2125 @@ footer {
   }
 }
 
+/* Revision: unified dark frame, calmer hero text, minimal gallery */
+.hero-word-line {
+  line-height: 0.9;
+}
+
+.dark-studio-frame {
+  position: relative;
+  isolation: isolate;
+  /* clip, not hidden: hidden creates a scroll container and breaks position: sticky inside */
+  overflow: clip;
+  margin: 0;
+  border: 1px solid rgba(241, 248, 255, 0.18);
+  border-radius: 34px;
+  background: #0b0b0b;
+  color: #f1f8ff;
+  box-shadow:
+    inset 0 1px 0 rgba(241, 248, 255, 0.08),
+    0 30px 90px rgba(11, 11, 11, 0.18);
+}
+
+.dark-studio-grid {
+  opacity: 0.62;
+  mix-blend-mode: screen;
+}
+
+.dark-studio-frame > section,
+.dark-studio-frame > .workflow-section {
+  position: relative;
+  z-index: 1;
+}
+
+.dark-studio-frame .section-heading h2,
+.dark-studio-frame .gallery-section h2,
+.dark-studio-frame .workflow-section h2 {
+  color: #f1f8ff !important;
+}
+
+.dark-studio-frame .section-heading p:last-child,
+.dark-studio-frame .gallery-section p,
+.dark-studio-frame .workflow-section p {
+  color: rgba(241, 248, 255, 0.62) !important;
+}
+
+.services-section {
+  min-height: auto;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.services-section .services-bento {
+  overflow: visible;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  padding: 0;
+}
+
+.services-bento::before {
+  display: none;
+}
+
+.gallery-section .accent-swipe::before,
+.gallery-section .h-px,
+.gallery-filter-row,
+.gallery-image-shade,
+.gallery-project-index {
+  display: none !important;
+}
+
+.gallery-section {
+  color: #f1f8ff;
+}
+
+.gallery-section .accent-swipe {
+  color: #f1f8ff;
+}
+
+.portfolio-card::after {
+  display: none !important;
+}
+
+@media (max-width: 640px) {
+  .dark-studio-frame {
+    border-radius: 24px;
+  }
+}
+
+/* Final visual cleanup: calmer hero, unified frame, minimal portfolio */
+.hero-kinetic-stage {
+  position: absolute;
+  inset: 12% 3% auto auto;
+  z-index: 0;
+  width: min(42vw, 440px);
+  aspect-ratio: 1;
+  perspective: 900px;
+  transform-style: preserve-3d;
+  opacity: 0.9;
+}
+
+.dark-studio-frame {
+  border-color: rgba(241, 248, 255, 0.64);
+  border-radius: 34px;
+}
+
+.dark-studio-grid {
+  opacity: 0.78;
+}
+
+.services-section .services-bento,
+.workflow-bento,
+.gallery-shell {
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.gallery-section h2 {
+  max-width: none;
+}
+
+@media (max-width: 640px) {
+  .hero-title {
+    overflow-wrap: anywhere;
+  }
+}
+
+/* User revision: typing hero, no 3D objects, modal gallery, stacked workflow */
+.hero-typing-line {
+  min-height: 0.96em;
+  white-space: nowrap;
+}
+
+.service-copy-block {
+  display: flex;
+  min-height: 360px;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.service-bento-panel {
+  background:
+    linear-gradient(135deg, rgba(241, 248, 255, 0.075), transparent 42%),
+    linear-gradient(90deg, rgba(45, 99, 252, 0.18) 0 1px, transparent 1px),
+    #0b0b0b !important;
+  background-size: auto, 34px 34px, auto;
+}
+
+.portfolio-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: grid;
+  place-items: center;
+  padding: clamp(10px, 1.6vw, 28px);
+}
+
+.portfolio-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  border: 0;
+  background: rgba(11, 11, 11, 0.72);
+  backdrop-filter: blur(18px);
+  animation: portfolio-backdrop-in 360ms ease both;
+}
+
+.portfolio-modal-panel {
+  position: relative;
+  z-index: 1;
+  width: min(1120px, 100%);
+  max-height: min(86vh, 820px);
+  overflow: hidden;
+  border: 1px solid rgba(241, 248, 255, 0.18);
+  border-radius: var(--radius-block);
+  background: #0b0b0b;
+  color: #f1f8ff;
+  box-shadow: 0 40px 120px rgba(11, 11, 11, 0.52);
+  animation: portfolio-modal-in 420ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.portfolio-modal-scroll {
+  display: grid;
+  max-height: min(86vh, 820px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.portfolio-modal-close-x {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 3;
+  display: grid;
+  width: 40px;
+  height: 40px;
+  place-items: center;
+  border: 0;
+  background: transparent;
+  color: rgba(241, 248, 255, 0.6);
+  font-size: 26px;
+  font-weight: 400;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.portfolio-modal-close-x:hover,
+.portfolio-modal-close-x:focus-visible {
+  color: #f1f8ff;
+  outline: none;
+}
+
+.portfolio-modal-meta {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  border-top: 1px solid rgba(241, 248, 255, 0.1);
+  padding-top: 20px;
+}
+
+.portfolio-modal-meta div {
+  display: grid;
+  gap: 6px;
+}
+
+.portfolio-modal-meta dt {
+  color: rgba(241, 248, 255, 0.5);
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.portfolio-modal-meta dd {
+  color: #f1f8ff;
+  font-size: 14px;
+  font-weight: 800;
+  line-height: 1.25;
+}
+
+@media (max-width: 560px) {
+  .portfolio-modal-meta {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+}
+
+.portfolio-modal-copy {
+  display: grid;
+  gap: 18px;
+  padding: clamp(22px, 4vw, 44px);
+}
+
+.portfolio-modal-copy h3 {
+  max-width: 780px;
+  color: #f1f8ff;
+  font-size: clamp(34px, 5vw, 72px);
+  font-weight: 950;
+  line-height: 0.98;
+}
+
+.portfolio-modal-copy p {
+  max-width: 68ch;
+  color: rgba(241, 248, 255, 0.68);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.65;
+}
+
+.portfolio-modal-chip {
+  display: inline-flex;
+  min-height: 34px;
+  align-items: center;
+  border: 1px solid rgba(241, 248, 255, 0.14);
+  border-radius: 8px;
+  background: rgba(241, 248, 255, 0.08);
+  padding: 8px 11px;
+  color: rgba(241, 248, 255, 0.84);
+  font-size: 12px;
+  font-weight: 900;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.portfolio-modal-close {
+  width: fit-content;
+  min-height: 46px;
+  border: 0;
+  border-radius: 8px;
+  background: #f1f8ff;
+  padding: 0 18px;
+  color: #0b0b0b;
+  font-size: 13px;
+  font-weight: 900;
+  transition: background-color 220ms ease, color 220ms ease;
+}
+
+.portfolio-modal-close:hover,
+.portfolio-modal-close:focus-visible {
+  background: #2d63fc;
+  color: #f1f8ff;
+  outline: none;
+}
+
+.reveal-ready section,
+.reveal-ready footer {
+  opacity: 0;
+  filter: blur(16px);
+  transform: translateY(44px) scale(0.975);
+  transition:
+    opacity 900ms cubic-bezier(0.16, 1, 0.3, 1),
+    filter 1000ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 1100ms cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform, filter;
+}
+
+.reveal-ready section.is-visible,
+.reveal-ready footer.is-visible {
+  opacity: 1;
+  filter: blur(0);
+  transform: translateY(0) scale(1);
+}
+
+/* Premium staged reveal for cards / panels inside a section */
+.reveal-ready .service-bento-panel,
+.reveal-ready .portfolio-card,
+.reveal-ready .workflow-stack-card,
+.reveal-ready .contact-link {
+  opacity: 0;
+  filter: blur(10px);
+  transform: translateY(34px) scale(0.985);
+  transition:
+    opacity 720ms cubic-bezier(0.16, 1, 0.3, 1),
+    filter 720ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 860ms cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 260ms ease,
+    box-shadow 260ms ease;
+  will-change: opacity, transform, filter;
+}
+
+.reveal-ready #services.is-visible .service-bento-panel,
+.reveal-ready #portfolio.is-visible .portfolio-card,
+.reveal-ready #workflow.is-visible .workflow-stack-card,
+.reveal-ready footer.is-visible .contact-link {
+  opacity: 1;
+  filter: blur(0);
+  transform: translateY(0) scale(1);
+}
+
+.reveal-ready #services.is-visible .service-bento-panel:nth-child(2),
+.reveal-ready #portfolio.is-visible .portfolio-card:nth-child(2),
+.reveal-ready #workflow.is-visible .workflow-stack-card:nth-child(2),
+.reveal-ready footer.is-visible .contact-link:nth-child(2) {
+  transition-delay: 110ms;
+}
+
+.reveal-ready #portfolio.is-visible .portfolio-card:nth-child(3),
+.reveal-ready #workflow.is-visible .workflow-stack-card:nth-child(3),
+.reveal-ready footer.is-visible .contact-link:nth-child(3) {
+  transition-delay: 220ms;
+}
+
+.reveal-ready #portfolio.is-visible .portfolio-card:nth-child(4) {
+  transition-delay: 330ms;
+}
+
+@media (max-width: 640px) {
+
+  .service-copy-block {
+    min-height: 300px;
+  }
+
+  .portfolio-modal {
+    padding: 10px;
+  }
+
+  .portfolio-modal-panel,
+  .portfolio-modal-scroll {
+    max-height: 88vh;
+    border-radius: 14px;
+  }
+}
+
+/* Refinement: true Morphing Text hero + real workflow card overlap */
+.hero-morph-line {
+  white-space: nowrap;
+}
+
+.hero-morph-word-wrap {
+  position: relative;
+  display: inline-block;
+  width: 4.85em;
+  height: 0.94em;
+  vertical-align: baseline;
+  contain: paint;
+}
+
+.hero-morph-word {
+  position: absolute;
+  left: 0;
+  top: 0;
+  line-height: 0.94;
+  opacity: 0;
+  filter: blur(18px);
+  transform: translateY(0.05em) scale(0.92);
+  animation: hero-morph-word 7.2s ease-in-out infinite;
+  animation-delay: calc(var(--word-index) * 2.4s);
+  will-change: opacity, filter, transform;
+}
+
+@media (max-width: 640px) {
+  .hero-morph-word-wrap {
+    width: 4.9em;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-morph-word {
+    animation: none !important;
+    opacity: 0;
+    filter: none;
+    transform: none;
+  }
+
+  .hero-morph-word:first-child {
+    opacity: 1;
+  }
+}
+
+/* Gemini instruction implementation: steps-section stacking cards */
+.steps-section {
+  /* Single source of truth: heading and cards pin at the same line */
+  --steps-sticky-top: 104px;
+  position: relative;
+}
+
+.steps-container {
+  display: grid;
+  grid-template-columns: minmax(240px, 0.36fr) minmax(0, 0.64fr);
+  gap: clamp(36px, 7vw, 112px);
+  align-items: start;
+}
+
+.steps-left {
+  position: sticky;
+  top: var(--steps-sticky-top);
+  align-self: start;
+  /* Nudge the heading slightly right, toward the cards */
+  padding-left: clamp(18px, 3vw, 56px);
+  padding-top: 0;
+}
+
+.steps-title {
+  max-width: 520px;
+  /* Cap-height sits level with the top edge of the first card */
+  margin-top: -0.12em;
+  color: #f1f8ff !important;
+  font-size: clamp(54px, 6vw, 96px);
+  font-weight: 950;
+  line-height: 0.96;
+  letter-spacing: 0;
+}
+
+.steps-kicker {
+  margin-top: 20px;
+  color: #2d63fc !important;
+  font-size: 14px;
+  font-weight: 900;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.steps-description {
+  margin-top: 20px;
+  max-width: 42ch;
+  color: rgba(241, 248, 255, 0.62) !important;
+  font-size: 16px;
+  font-weight: 650;
+  line-height: 1.58;
+}
+
+.steps-right {
+  position: relative;
+  display: block;
+  /* No trailing travel: once the 3rd card docks, the page scrolls on */
+  padding-bottom: 0;
+}
+
+/* Sticky wrapper: framer-motion animates the card inside, wrapper handles pinning.
+   All cards dock on the same line as the heading, so the 3rd card's top
+   aligns with «Этапы работы» and the stack ends right there. */
+.step-sticky {
+  position: sticky;
+  top: var(--steps-sticky-top);
+}
+
+.step-sticky + .step-sticky {
+  margin-top: 32vh;
+}
+
+.step-card {
+  display: flex;
+  min-height: min(58vh, 520px);
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  border: 1px solid rgba(241, 248, 255, 0.16);
+  border-radius: var(--radius-block);
+  background:
+    linear-gradient(135deg, rgba(45, 99, 252, 0.26), transparent 36%),
+    linear-gradient(180deg, rgba(241, 248, 255, 0.08), rgba(241, 248, 255, 0.025)),
+    #0b0b0b;
+  padding: clamp(24px, 4vw, 44px);
+  color: #f1f8ff;
+  box-shadow: 0 34px 90px rgba(11, 11, 11, 0.28);
+  transform-origin: top center;
+}
+
+.step-card::before {
+  position: absolute;
+  inset: 0;
+  content: "";
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, rgba(241, 248, 255, 0.06) 1px, transparent 1px),
+    linear-gradient(0deg, rgba(241, 248, 255, 0.05) 1px, transparent 1px);
+  background-size: 32px 32px;
+  mask-image: linear-gradient(180deg, #000, transparent 78%);
+}
+
+.step-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+.step-card-topline,
+.step-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  color: rgba(241, 248, 255, 0.58);
+  font-size: 12px;
+  font-weight: 950;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.step-card h3 {
+  max-width: 760px;
+  color: #f1f8ff;
+  font-size: clamp(42px, 6vw, 92px);
+  font-weight: 950;
+  line-height: 0.96;
+  letter-spacing: 0;
+}
+
+.step-card p {
+  margin-top: 24px;
+  max-width: 58ch;
+  color: rgba(241, 248, 255, 0.68) !important;
+  font-size: clamp(16px, 1.7vw, 20px);
+  font-weight: 650;
+  line-height: 1.55;
+}
+
+.reveal-ready .step-sticky {
+  opacity: 0;
+  filter: blur(12px);
+  transform: translateY(40px) scale(0.975);
+  transition:
+    opacity 820ms cubic-bezier(0.16, 1, 0.3, 1),
+    filter 820ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 980ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-ready #workflow.is-visible .step-sticky {
+  opacity: 1;
+  filter: blur(0);
+  transform: translateY(0) scale(1);
+}
+
+.reveal-ready #workflow.is-visible .step-sticky:nth-child(2) {
+  transition-delay: 120ms;
+}
+
+.reveal-ready #workflow.is-visible .step-sticky:nth-child(3) {
+  transition-delay: 240ms;
+}
+
+@media (max-width: 1023px) {
+  .steps-section {
+    min-height: auto;
+  }
+
+  .steps-container {
+    grid-template-columns: 1fr;
+    gap: 34px;
+  }
+
+  .steps-left {
+    position: relative;
+    top: auto;
+  }
+
+  /* Mobile: no stacking — cards flow top to bottom with plain gaps */
+  .steps-left {
+    padding-left: 0;
+  }
+
+  .steps-right {
+    padding-bottom: 0;
+  }
+
+  .step-sticky {
+    position: relative;
+    top: auto;
+  }
+
+  .step-sticky + .step-sticky {
+    margin-top: 12px;
+  }
+
+  .step-card {
+    min-height: 430px;
+  }
+}
+
+@media (max-width: 640px) {
+  .step-card {
+    min-height: 360px;
+    border-radius: 18px;
+  }
+
+  .step-sticky + .step-sticky {
+    margin-top: 12px;
+  }
+}
+
+/* ===== Premium unification: one radius system, one border system, one hover language ===== */
+:root {
+  --radius-media: 16px;
+  --radius-chip: 10px;
+  --border-soft: rgba(241, 248, 255, 0.12);
+  --border-strong: rgba(241, 248, 255, 0.2);
+}
+
+.service-bento-panel {
+  border-radius: var(--radius-block) !important;
+  border-color: var(--border-soft) !important;
+}
+
+.service-bento-panel-interactive {
+  transition:
+    transform 340ms cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 260ms ease,
+    box-shadow 340ms ease;
+}
+
+.service-bento-panel-interactive:hover {
+  transform: translateY(-4px);
+  border-color: rgba(45, 99, 252, 0.55) !important;
+  box-shadow: 0 26px 64px rgba(11, 11, 11, 0.3), inset 0 1px 0 rgba(45, 99, 252, 0.2);
+}
+
+.service-tool-pill,
+.service-check-pill,
+.portfolio-modal-chip,
+.gallery-scope-chip,
+.workflow-meta-pill {
+  border-radius: var(--radius-chip);
+}
+
+/* ===== Gallery refresh: framed media, hover lift, arrow badge, soft shade ===== */
+.gallery-note {
+  margin-top: 18px;
+  max-width: 52ch;
+  color: rgba(11, 11, 11, 0.62);
+  font-size: 16px;
+  font-weight: 550;
+  line-height: 1.55;
+}
+
+.dark-studio-frame .gallery-note {
+  color: rgba(241, 248, 255, 0.62) !important;
+}
+
+.gallery-kicker {
+  margin-bottom: 16px;
+  color: #2d63fc !important;
+  font-size: 14px;
+  font-weight: 900;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+/* ===== Footer refresh ===== */
+footer#contacts {
+  border-radius: var(--radius-block);
+}
+
+.footer-bottom {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin-top: 56px;
+  border-top: 1px solid rgba(241, 248, 255, 0.28);
+  padding-top: 22px;
+  color: rgba(241, 248, 255, 0.74);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.footer-top-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #f1f8ff;
+  transition: opacity 220ms ease;
+}
+
+.footer-top-link:hover {
+  opacity: 0.72;
+}
+
+/* ===== Restyle v3: flat engineering cells (услуги/этапы), work cards, compact footer ===== */
+
+/* --- Services & Steps: flat near-black cells with dashed hairlines and grid texture --- */
+.service-bento-panel {
+  border: 1px dashed rgba(241, 248, 255, 0.16);
+  border-radius: var(--radius-block) !important;
+  background: #0b0b0b !important;
+  box-shadow: none;
+}
+
+/* Сетка + несколько чуть подсвеченных клеток (по мотивам референса) */
+.service-bento-panel::after {
+  background:
+    linear-gradient(rgba(241, 248, 255, 0.05), rgba(241, 248, 255, 0.05)) 136px 34px / 34px 34px no-repeat,
+    linear-gradient(rgba(241, 248, 255, 0.035), rgba(241, 248, 255, 0.035)) 34px 102px / 34px 34px no-repeat,
+    linear-gradient(rgba(241, 248, 255, 0.045), rgba(241, 248, 255, 0.045)) 306px 0 / 34px 34px no-repeat,
+    linear-gradient(rgba(241, 248, 255, 0.03), rgba(241, 248, 255, 0.03)) 238px 68px / 34px 34px no-repeat,
+    linear-gradient(90deg, rgba(241, 248, 255, 0.045) 1px, transparent 1px) 0 0 / 34px 34px,
+    linear-gradient(0deg, rgba(241, 248, 255, 0.045) 1px, transparent 1px) 0 0 / 34px 34px;
+  mask-image: linear-gradient(180deg, #000, transparent 72%);
+  opacity: 1;
+}
+
+.service-bento-panel-interactive:hover {
+  transform: translateY(-3px);
+  border-color: rgba(241, 248, 255, 0.34) !important;
+  box-shadow: 0 22px 54px rgba(11, 11, 11, 0.32);
+}
+
+.service-copy-block {
+  display: block;
+  min-height: 0;
+}
+
+.panel-icon {
+  display: block;
+  margin-bottom: 26px;
+  color: #f1f8ff;
+  opacity: 0.92;
+}
+
+.panel-icon svg {
+  width: 38px;
+  height: 38px;
+}
+
+.services-section h3 {
+  font-size: 24px !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.01em;
+  line-height: 1.15 !important;
+}
+
+.services-section .service-copy-block p,
+.services-section .service-bento-panel p {
+  margin-top: 12px;
+  max-width: 46ch;
+  color: rgba(241, 248, 255, 0.58) !important;
+  font-size: 15px !important;
+  font-weight: 450 !important;
+  line-height: 1.55 !important;
+}
+
+.service-tool-pill {
+  border: 1px dashed rgba(241, 248, 255, 0.16);
+  background: transparent;
+  color: rgba(241, 248, 255, 0.72);
+  font-weight: 650;
+}
+
+/* Steps cards → same engineering language */
+.step-card {
+  border: 1px dashed rgba(241, 248, 255, 0.16);
+  background: #0b0b0b;
+  box-shadow: 0 24px 60px rgba(11, 11, 11, 0.22);
+}
+
+.step-card::before {
+  background:
+    linear-gradient(90deg, rgba(241, 248, 255, 0.045) 1px, transparent 1px) 0 0 / 34px 34px,
+    linear-gradient(0deg, rgba(241, 248, 255, 0.045) 1px, transparent 1px) 0 0 / 34px 34px;
+  mask-image: linear-gradient(180deg, #000, transparent 72%);
+}
+
+.step-card h3 {
+  font-size: clamp(30px, 3.6vw, 50px);
+  font-weight: 850;
+}
+
+.step-card p {
+  color: rgba(241, 248, 255, 0.6) !important;
+  font-size: 16px;
+  font-weight: 450;
+}
+
+.step-card-topline,
+.step-card-footer {
+  color: rgba(241, 248, 255, 0.48);
+}
+
+/* --- Gallery: photo cards with top-left copy and glass CTA --- */
+.work-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+@media (min-width: 768px) {
+  .work-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.work-card {
+  position: relative;
+  overflow: clip;
+  aspect-ratio: 4 / 4.4;
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-block);
+  background: #0b0b0b;
+}
+
+@media (min-width: 1024px) {
+  .work-card {
+    aspect-ratio: 4 / 4.1;
+  }
+}
+
+.work-card-img {
+  object-fit: cover;
+  filter: saturate(0.92);
+  transition:
+    transform 720ms cubic-bezier(0.16, 1, 0.3, 1),
+    filter 480ms ease;
+}
+
+.work-card:hover .work-card-img {
+  transform: scale(1.028);
+  filter: saturate(1);
+}
+
+.work-card-shade {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(11, 11, 11, 0.68), rgba(11, 11, 11, 0.22) 32%, transparent 54%, rgba(11, 11, 11, 0.52));
+}
+
+.work-card-copy {
+  position: absolute;
+  left: 26px;
+  right: 26px;
+  top: 24px;
+  color: #f1f8ff;
+}
+
+.work-card-copy h3 {
+  font-size: clamp(24px, 2.4vw, 34px);
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+}
+
+.work-card-copy p {
+  margin-top: 10px;
+  max-width: 44ch;
+  color: rgba(241, 248, 255, 0.76);
+  font-size: 14px;
+  font-weight: 450;
+  line-height: 1.5;
+}
+
+.work-card-btn {
+  position: absolute;
+  left: 18px;
+  right: 18px;
+  bottom: 18px;
+  min-height: 54px;
+  border: 1px solid rgba(241, 248, 255, 0.28);
+  border-radius: 16px;
+  background: rgba(241, 248, 255, 0.12);
+  backdrop-filter: blur(16px);
+  color: #f1f8ff;
+  font-size: 15px;
+  font-weight: 750;
+  cursor: pointer;
+  transition:
+    background-color 260ms ease,
+    border-color 260ms ease,
+    transform 260ms ease;
+}
+
+.work-card-btn:hover,
+.work-card-btn:focus-visible {
+  background: rgba(241, 248, 255, 0.22);
+  border-color: rgba(241, 248, 255, 0.4);
+  outline: none;
+}
+
+/* --- Footer: compact, dark, quiet --- */
+.contact-link {
+  min-height: 64px;
+  border-radius: 14px;
+  padding: 14px 18px;
+}
+
+.footer-bottom {
+  margin-top: 34px;
+  border-top-color: rgba(241, 248, 255, 0.14);
+  padding-top: 16px;
+  color: rgba(241, 248, 255, 0.58);
+  font-weight: 700;
+}
+
+.panel-icon-inline {
+  margin-bottom: 20px;
+}
+
+.service-bento-panel,
+.step-card {
+  animation: hairline-breathe 5.6s ease-in-out infinite;
+}
+
+.service-bento-panel:nth-child(2) {
+  animation-delay: 1.4s;
+}
+
+.service-bento-panel:nth-child(3) {
+  animation-delay: 2.8s;
+}
+
+.step-sticky:nth-child(2) .step-card {
+  animation-delay: 1.4s;
+}
+
+.step-sticky:nth-child(3) .step-card {
+  animation-delay: 2.8s;
+}
+
+/* Этапы: компактнее, иконка в углу без нижнего зазора */
+.step-card {
+  min-height: min(44vh, 420px);
+}
+
+.step-card .panel-icon {
+  margin-bottom: 0;
+}
+
+.step-card .panel-icon svg {
+  width: 34px;
+  height: 34px;
+}
+
+/* --- Ghost buttons: единый прозрачный премиальный стиль --- */
+.btn-ghost {
+  display: inline-flex;
+  min-height: 52px;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border: 1px solid rgba(11, 11, 11, 0.22);
+  border-radius: 14px;
+  background: rgba(11, 11, 11, 0.04);
+  backdrop-filter: blur(12px);
+  padding: 0 22px;
+  color: #0b0b0b;
+  font-size: 14px;
+  font-weight: 800;
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    border-color 240ms ease,
+    background-color 240ms ease,
+    color 240ms ease,
+    transform 240ms ease;
+}
+
+.btn-ghost:hover {
+  border-color: rgba(45, 99, 252, 0.55);
+  background: rgba(45, 99, 252, 0.07);
+  color: #2d63fc;
+}
+
+.btn-ghost:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px #2d63fc;
+}
+
+.btn-ghost:active {
+  transform: translateY(1px);
+}
+
+.btn-ghost .btn-arrow {
+  font-size: 15px;
+  opacity: 0.68;
+  transition: transform 240ms ease, opacity 240ms ease;
+}
+
+.btn-ghost:hover .btn-arrow {
+  transform: translate(2px, -2px);
+  opacity: 1;
+}
+
+.btn-ghost-ice {
+  border-color: rgba(241, 248, 255, 0.24);
+  background: rgba(241, 248, 255, 0.06);
+  color: #f1f8ff;
+}
+
+.btn-ghost-ice:hover {
+  border-color: rgba(241, 248, 255, 0.46);
+  background: rgba(241, 248, 255, 0.13);
+  color: #f1f8ff;
+}
+
+.btn-ghost-ice:focus-visible {
+  box-shadow: 0 0 0 2px rgba(241, 248, 255, 0.8);
+}
+
+.btn-sm {
+  min-height: 40px;
+  border-radius: 11px;
+  padding: 0 16px;
+  font-size: 13px;
+}
+
+/* Кнопка «Закрыть» в модалке — тоже ghost */
+.portfolio-modal-close {
+  border: 1px solid rgba(241, 248, 255, 0.24);
+  background: rgba(241, 248, 255, 0.06);
+  color: #f1f8ff;
+  backdrop-filter: blur(10px);
+  transition: background-color 220ms ease, border-color 220ms ease, color 220ms ease;
+}
+
+.portfolio-modal-close:hover,
+.portfolio-modal-close:focus-visible {
+  border-color: rgba(241, 248, 255, 0.46);
+  background: rgba(241, 248, 255, 0.14);
+  color: #f1f8ff;
+}
+
+/* ===== v5: glass buttons everywhere, white footer, media slider, random cells. ===== */
+:root {
+  --radius-btn: 14px;
+}
+
+/* Единое скругление и стеклянность всех кнопок */
+.btn-ghost {
+  border-radius: var(--radius-btn);
+  border: 1px solid rgba(11, 11, 11, 0.14);
+  background: rgba(241, 248, 255, 0.4);
+  backdrop-filter: blur(18px) saturate(1.5);
+  box-shadow:
+    inset 0 1px 0 rgba(241, 248, 255, 0.6),
+    0 8px 26px rgba(11, 11, 11, 0.07);
+}
+
+.btn-ghost:hover {
+  border-color: rgba(45, 99, 252, 0.5);
+  background: rgba(241, 248, 255, 0.62);
+  color: #2d63fc;
+}
+
+.btn-ghost-ice {
+  border-color: rgba(241, 248, 255, 0.22);
+  background: rgba(241, 248, 255, 0.08);
+  box-shadow:
+    inset 0 1px 0 rgba(241, 248, 255, 0.2),
+    0 8px 26px rgba(11, 11, 11, 0.24);
+}
+
+.btn-ghost-ice:hover {
+  border-color: rgba(241, 248, 255, 0.44);
+  background: rgba(241, 248, 255, 0.15);
+  color: #f1f8ff;
+}
+
+.btn-sm {
+  border-radius: var(--radius-btn);
+}
+
+.work-card-btn {
+  border-radius: var(--radius-btn);
+  box-shadow: inset 0 1px 0 rgba(241, 248, 255, 0.22);
+}
+
+.portfolio-modal-close {
+  border-radius: var(--radius-btn);
+}
+
+.portfolio-modal-close-x {
+  background: transparent;
+  backdrop-filter: none;
+}
+
+/* Этапы: ещё компактнее, ритм плотнее */
+.step-card {
+  min-height: min(38vh, 360px);
+}
+
+/* Расстояние между «докингами» карточек — только на десктопе.
+   На адаптиве карточки идут обычным потоком с компактными отступами (см. медиазапросы) */
+@media (min-width: 1024px) {
+  .step-sticky + .step-sticky {
+    margin-top: 24vh;
+  }
+}
+
+/* Футер на белом: тёмный текст, стеклянные плитки */
+.contact-link {
+  border: 1px solid rgba(11, 11, 11, 0.14);
+  background: rgba(241, 248, 255, 0.5);
+  backdrop-filter: blur(18px) saturate(1.4);
+  border-radius: var(--radius-btn);
+  color: #0b0b0b;
+  box-shadow: inset 0 1px 0 rgba(241, 248, 255, 0.65);
+}
+
+.footer-grid {
+  opacity: 0.5;
+  mix-blend-mode: multiply;
+}
+
+.footer-bottom {
+  border-top-color: rgba(11, 11, 11, 0.12);
+  color: rgba(11, 11, 11, 0.58);
+}
+
+.footer-top-link {
+  color: #0b0b0b;
+}
+
+.footer-top-link:hover {
+  color: #2d63fc;
+  opacity: 1;
+}
+
+/* Модалка: строго в стилистике сайта + слайдер медиа */
+.portfolio-modal-panel {
+  width: min(1000px, 100%);
+  max-height: 88vh;
+  border: 1px dashed rgba(241, 248, 255, 0.18);
+  background: #0b0b0b;
+}
+
+.portfolio-modal-scroll {
+  max-height: 88vh;
+}
+
+.modal-slider {
+  position: relative;
+  height: min(56vh, 540px);
+  border-bottom: 1px solid rgba(241, 248, 255, 0.1);
+  background:
+    linear-gradient(90deg, rgba(241, 248, 255, 0.03) 1px, transparent 1px) 0 0 / 34px 34px,
+    linear-gradient(0deg, rgba(241, 248, 255, 0.03) 1px, transparent 1px) 0 0 / 34px 34px,
+    #0b0b0b;
+}
+
+.modal-slide {
+  position: absolute;
+  inset: 0;
+  animation: modal-slide-in 340ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.modal-slide-media {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  animation: modal-slide-in 340ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.modal-slider-btn {
+  position: absolute;
+  top: 50%;
+  z-index: 2;
+  display: grid;
+  width: 46px;
+  height: 46px;
+  place-items: center;
+  transform: translateY(-50%);
+  border: 1px solid rgba(241, 248, 255, 0.24);
+  border-radius: var(--radius-btn);
+  background: rgba(11, 11, 11, 0.55);
+  backdrop-filter: blur(14px);
+  color: #f1f8ff;
+  font-size: 24px;
+  line-height: 1;
+  cursor: pointer;
+  transition: background-color 220ms ease, border-color 220ms ease;
+}
+
+.modal-slider-btn:hover,
+.modal-slider-btn:focus-visible {
+  border-color: rgba(241, 248, 255, 0.46);
+  background: rgba(241, 248, 255, 0.14);
+  outline: none;
+}
+
+.modal-slider-prev {
+  left: 14px;
+}
+
+.modal-slider-next {
+  right: 14px;
+}
+
+.modal-slider-count {
+  position: absolute;
+  right: 14px;
+  bottom: 14px;
+  z-index: 2;
+  border: 1px solid rgba(241, 248, 255, 0.2);
+  border-radius: 10px;
+  background: rgba(11, 11, 11, 0.55);
+  backdrop-filter: blur(14px);
+  padding: 8px 12px;
+  color: rgba(241, 248, 255, 0.85);
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+@media (max-width: 640px) {
+  .modal-slider {
+    height: 46vh;
+  }
+}
+
+/* ===== v6: readable work-card tops, footer contrast fixes ===== */
+
+/* Верх карточки работы: блюр подложки + затемнение, чтобы заголовок и текст читались */
+.work-card-shade {
+  background: linear-gradient(180deg, rgba(11, 11, 11, 0.74), rgba(11, 11, 11, 0.28) 34%, transparent 56%, rgba(11, 11, 11, 0.52));
+}
+
+.work-card-shade::before {
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 46%;
+  content: "";
+  backdrop-filter: blur(14px);
+  mask-image: linear-gradient(180deg, #000 26%, transparent 100%);
+  background: linear-gradient(180deg, rgba(11, 11, 11, 0.34), transparent 82%);
+}
+
+/* Мерцающая сетка в футере — заметнее на светлом */
+.footer-grid {
+  opacity: 0.85;
+  mix-blend-mode: multiply;
+}
+
+@keyframes portfolio-backdrop-in {
+  from {
+    opacity: 0;
+    backdrop-filter: blur(0);
+  }
+  to {
+    opacity: 1;
+    backdrop-filter: blur(18px);
+  }
+}
+
+@keyframes portfolio-modal-in {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes hero-morph-word {
+  0% {
+    opacity: 0;
+    filter: blur(18px);
+    transform: translateY(0.08em) scale(0.92);
+  }
+  10%, 26% {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0) scale(1);
+  }
+  38%, 100% {
+    opacity: 0;
+    filter: blur(18px);
+    transform: translateY(-0.08em) scale(1.08);
+  }
+}
+
+/* ===== v4: living hairline, tighter blocks, ghost buttons. ===== */
+
+/* Неявное «дыхание» пунктирной обводки */
+@keyframes hairline-breathe {
+  0%, 100% { border-color: rgba(241, 248, 255, 0.13); }
+  50% { border-color: rgba(241, 248, 255, 0.32); }
+}
+
+@keyframes modal-slide-in {
+  from {
+    opacity: 0;
+    transform: scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* ===== v7: reworked "Посмотреть полностью" modal — two-column stage + thumbs ===== */
+/* v8: увеличенное окно — почти во весь экран (≈ ×2 по площади на десктопе) */
+.portfolio-modal-panel {
+  width: min(1760px, 96vw);
+  max-height: 95vh;
+  overflow: hidden;
+}
+
+.portfolio-modal-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.42fr) minmax(360px, 0.82fr);
+  /* явная высота, чтобы окно и область медиа реально заполняли экран */
+  height: min(95vh, 1040px);
+  max-height: 95vh;
+}
+
+.portfolio-modal-stage {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  border-right: 1px dashed rgba(241, 248, 255, 0.16);
+  background:
+    linear-gradient(90deg, rgba(241, 248, 255, 0.03) 1px, transparent 1px) 0 0 / 34px 34px,
+    linear-gradient(0deg, rgba(241, 248, 255, 0.03) 1px, transparent 1px) 0 0 / 34px 34px,
+    #0b0b0b;
+}
+
+/* Медиа заполняет высоту сцены; фиксированную высоту слайдера сбрасываем */
+.portfolio-modal-stage .modal-slider {
+  height: auto;
+  min-height: 0;
+  flex: 1 1 auto;
+  border-bottom: 1px dashed rgba(241, 248, 255, 0.14);
+  background: transparent;
+}
+
+.modal-thumbs {
+  display: flex;
+  flex-shrink: 0;
+  gap: 10px;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  padding: 14px;
+  scrollbar-width: thin;
+}
+
+.modal-thumb {
+  position: relative;
+  display: grid;
+  height: 58px;
+  width: 82px;
+  flex: 0 0 auto;
+  place-items: center;
+  overflow: hidden;
+  border: 1px solid rgba(241, 248, 255, 0.14);
+  border-radius: 10px;
+  background: #0b0b0b;
+  cursor: pointer;
+  opacity: 0.6;
+  transition: opacity 220ms ease, border-color 220ms ease, transform 220ms ease;
+}
+
+.modal-thumb:hover {
+  opacity: 0.85;
+  border-color: rgba(241, 248, 255, 0.3);
+}
+
+.modal-thumb.is-active {
+  opacity: 1;
+  border-color: #2d63fc;
+  box-shadow: 0 0 0 1px #2d63fc;
+}
+
+.modal-thumb:focus-visible {
+  outline: none;
+  border-color: #2d63fc;
+  box-shadow: 0 0 0 2px #2d63fc;
+}
+
+.modal-thumb-video {
+  color: rgba(241, 248, 255, 0.72);
+  font-size: 15px;
+  line-height: 1;
+}
+
+.portfolio-modal-side {
+  display: flex;
+  min-height: 0;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 18px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: clamp(22px, 2.4vw, 36px);
+}
+
+/* В двухколоночной сцене копи-блок без собственного паддинга */
+.portfolio-modal-side .portfolio-modal-copy {
+  gap: 16px;
+  padding: 0;
+}
+
+.portfolio-modal-side .portfolio-modal-copy h3 {
+  font-size: clamp(28px, 3vw, 46px);
+  line-height: 1;
+}
+
+.portfolio-modal-note {
+  padding-top: 4px;
+  font-size: 14px !important;
+}
+
+.portfolio-modal-actions {
+  display: grid;
+  gap: 10px;
+  padding-top: 4px;
+}
+
+.portfolio-modal-cta {
+  width: 100%;
+}
+
+.portfolio-modal-actions .portfolio-modal-close {
+  width: 100%;
+}
+
+@media (max-width: 900px) {
+  .portfolio-modal-grid {
+    grid-template-columns: 1fr;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+
+  .portfolio-modal-stage {
+    border-right: 0;
+    border-bottom: 1px dashed rgba(241, 248, 255, 0.16);
+  }
+
+  .portfolio-modal-stage .modal-slider {
+    height: 52vh;
+    flex: 0 0 auto;
+  }
+
+  .portfolio-modal-side {
+    overflow: visible;
+  }
+}
+
+/* ===== v9: «Обо мне» — залипающая секция со счётчиком; карточки слева, текст справа ===== */
+.about-pin-wrap {
+  position: relative;
+}
+
+.about-pin-inner {
+  padding-block: 96px;
+}
+
+.about-title {
+  margin-bottom: clamp(28px, 4vw, 52px);
+  text-align: left;
+}
+
+.about-grid {
+  display: grid;
+  gap: clamp(20px, 3vw, 40px);
+  grid-template-columns: 1fr;
+}
+
+.about-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* Текст прижат к низу — его конец совпадает с нижней гранью 3-й карточки */
+.about-copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 16px;
+}
+
+.about-copy p {
+  max-width: 54ch;
+  color: rgba(241, 248, 255, 0.66);
+  font-size: clamp(16px, 1.5vw, 20px);
+  font-weight: 500;
+  line-height: 1.62;
+}
+
+.about-fact {
+  border: 1px dashed rgba(241, 248, 255, 0.16);
+  border-radius: var(--radius-block);
+  background: #0b0b0b;
+  padding: clamp(22px, 2.6vw, 34px);
+}
+
+.about-fact dt {
+  color: #f1f8ff;
+  font-size: clamp(40px, 4.6vw, 64px);
+  font-weight: 950;
+  line-height: 0.96;
+  letter-spacing: -0.02em;
+}
+
+.about-fact dd {
+  margin-top: 12px;
+  max-width: 26ch;
+  color: rgba(241, 248, 255, 0.56) !important;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+@media (min-width: 1024px) {
+  /* Десктоп: секция «залипает», прокрутка будто замирает, цифры набираются.
+     Контент подобран так, чтобы целиком помещаться в один экран во время залипания */
+  .about-pin-wrap {
+    height: 170vh;
+  }
+
+  .about-pin-inner {
+    position: sticky;
+    top: 0;
+    display: flex;
+    min-height: 100vh;
+    /* прижимаем к верху ниже фикс-хедера, чтобы заголовок не уходил под него
+       и вся секция (вкл. «Работал с») помещалась в один экран */
+    align-items: flex-start;
+    padding-top: 92px;
+    padding-bottom: 28px;
+  }
+
+  .about-title {
+    margin-bottom: clamp(20px, 2.4vw, 32px);
+  }
+
+  .about-grid {
+    grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+    align-items: stretch;
+  }
+
+  .about-cards {
+    gap: 10px;
+  }
+
+  .about-fact {
+    padding: clamp(16px, 1.7vw, 22px) clamp(20px, 1.9vw, 26px);
+  }
+
+  .about-fact dt {
+    font-size: clamp(34px, 3.1vw, 46px);
+  }
+
+  .about-fact dd {
+    margin-top: 6px;
+  }
+
+  .about-collab {
+    margin-top: clamp(18px, 2vw, 26px);
+    padding-top: clamp(16px, 1.8vw, 22px);
+  }
+
+  .about-collab-card {
+    padding: clamp(15px, 1.5vw, 20px) clamp(18px, 1.6vw, 22px);
+  }
+
+  .about-collab-followers {
+    margin-top: 10px;
+  }
+}
+
+/* ===== v9: bigger footer — заголовок + кнопки под ним по левому краю ===== */
+.footer-title {
+  max-width: 16ch;
+  font-size: clamp(44px, 7vw, 104px);
+  font-weight: 950;
+  letter-spacing: -0.03em;
+  line-height: 0.96;
+}
+
+/* Кнопки выровнены по левому краю текста, ряд с переносом */
+.footer-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: clamp(28px, 4vw, 44px);
+}
+
+.footer-action {
+  min-height: 56px;
+  font-size: 15px;
+}
+
+.footer-band .footer-bottom {
+  margin-top: clamp(48px, 8vw, 96px);
+  font-size: 14px;
+}
+
+.footer-bottom-loc {
+  color: rgba(11, 11, 11, 0.5);
+}
+
+@media (max-width: 767px) {
+  .footer-action {
+    flex: 1 1 100%;
+    justify-content: space-between;
+  }
+
+  .footer-bottom-loc {
+    order: 3;
+    flex-basis: 100%;
+  }
+}
+
+/* ===== v8: unified b/w engineering cells — Услуги = Обо мне = Создание ===== */
+:root {
+  /* Только линии сетки — подсвеченные клетки рисует <EngCells/> на рандомных местах */
+  --eng-cells:
+    linear-gradient(90deg, rgba(241, 248, 255, 0.045) 1px, transparent 1px) 0 0 / 34px 34px,
+    linear-gradient(0deg, rgba(241, 248, 255, 0.045) 1px, transparent 1px) 0 0 / 34px 34px;
+}
+
+/* Носители клеток: позиционирование + обрезка по краю карточки */
+.service-bento-panel,
+.step-card,
+.about-fact,
+.about-collab-card {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Рандомные подсвеченные клетки (рисуются компонентом EngCells) */
+.eng-cells {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  mask-image: linear-gradient(180deg, #000, transparent 78%);
+}
+
+.eng-cells i {
+  position: absolute;
+  width: 34px;
+  height: 34px;
+  background: #f1f8ff;
+}
+
+/* Правила вида «.карточка > *» ставят детям position:relative/z-index:1 —
+   возвращаем слою клеток абсолютное позиционирование (специфичность выше) */
+.service-bento-panel > .eng-cells,
+.step-card > .eng-cells,
+.about-fact > .eng-cells,
+.about-collab-card > .eng-cells {
+  position: absolute;
+  z-index: 0;
+}
+
+/* Один и тот же слой клеток на всех карточках тёмной рамки */
+.service-bento-panel::after,
+.step-card::before,
+.about-fact::before,
+.about-collab-card::before {
+  background: var(--eng-cells);
+  mask-image: linear-gradient(180deg, #000, transparent 72%);
+  opacity: 1;
+}
+
+/* «Обо мне»: карточки-цифры получают тот же слой клеток, что и услуги */
+.about-fact {
+  position: relative;
+  overflow: hidden;
+}
+
+.about-fact::before {
+  position: absolute;
+  inset: 0;
+  content: "";
+  pointer-events: none;
+}
+
+.about-fact > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Стабильная ширина цифр во время count-up анимации */
+.about-fact dt {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ===== v12: переработанный футер — акцентный заголовок + контакт-плитки ===== */
+.footer-title em {
+  font-style: normal;
+  color: #2d63fc;
+}
+
+/* Текст слева, плитки справа */
+.footer-lead {
+  display: grid;
+  gap: clamp(28px, 4vw, 48px);
+  align-items: center;
+}
+
+@media (min-width: 1024px) {
+  .footer-lead {
+    grid-template-columns: minmax(0, 1fr) minmax(340px, 460px);
+  }
+}
+
+/* Компактные плитки одним вертикальным списком */
+.footer-tiles {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 520px;
+}
+
+.footer-tile {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 16px;
+  min-height: 58px;
+  border: 1px dashed rgba(11, 11, 11, 0.2);
+  border-radius: var(--radius-btn);
+  background: rgba(241, 248, 255, 0.5);
+  backdrop-filter: blur(18px) saturate(1.4);
+  padding: 10px 18px;
+  box-shadow:
+    inset 0 1px 0 rgba(241, 248, 255, 0.65),
+    0 8px 24px rgba(11, 11, 11, 0.06);
+  transition:
+    transform 280ms cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 240ms ease,
+    background-color 240ms ease;
+}
+
+.footer-tile:hover {
+  transform: translateY(-3px);
+  border-color: rgba(45, 99, 252, 0.55);
+  background: rgba(241, 248, 255, 0.72);
+}
+
+.footer-tile:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px #2d63fc;
+}
+
+.footer-tile-label {
+  min-width: 96px;
+  color: rgba(11, 11, 11, 0.48);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.footer-tile-handle {
+  color: #0b0b0b;
+  font-size: clamp(16px, 1.5vw, 20px);
+  font-weight: 800;
+  line-height: 1.2;
+  overflow-wrap: anywhere;
+  transition: color 240ms ease;
+}
+
+.footer-tile:hover .footer-tile-handle {
+  color: #2d63fc;
+}
+
+.footer-tile-arrow {
+  margin-left: auto;
+  color: rgba(11, 11, 11, 0.4);
+  font-size: 18px;
+  line-height: 1;
+  transition: transform 240ms ease, color 240ms ease;
+}
+
+.footer-tile:hover .footer-tile-arrow {
+  transform: translate(2px, -2px);
+  color: #2d63fc;
+}
+
+@media (max-width: 767px) {
+  .footer-tiles {
+    max-width: none;
+  }
+
+  .footer-tile-label {
+    min-width: 76px;
+  }
+}
+
+/* ===== v11: «Работал с» — строка коллабораций под сеткой «Обо мне» ===== */
+.about-collab {
+  margin-top: clamp(32px, 5vw, 56px);
+  padding-top: clamp(24px, 3vw, 36px);
+  border-top: 1px dashed rgba(241, 248, 255, 0.16);
+}
+
+.about-collab-label {
+  margin-bottom: 18px;
+  color: rgba(241, 248, 255, 0.5);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.14em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.about-collab-grid {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.about-collab-card {
+  position: relative;
+  overflow: hidden;
+  border: 1px dashed rgba(241, 248, 255, 0.16);
+  border-radius: var(--radius-block);
+  background: #0b0b0b;
+  padding: clamp(20px, 2.2vw, 28px);
+}
+
+.about-collab-card::before {
+  position: absolute;
+  inset: 0;
+  content: "";
+  pointer-events: none;
+}
+
+.about-collab-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+.about-collab-card h3 {
+  color: #f1f8ff;
+  font-size: clamp(20px, 1.7vw, 26px);
+  font-weight: 900;
+  letter-spacing: -0.01em;
+  line-height: 1.1;
+}
+
+.about-collab-field {
+  margin-top: 6px;
+  color: rgba(241, 248, 255, 0.5);
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.about-collab-followers {
+  margin-top: 18px;
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  color: rgba(241, 248, 255, 0.58);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.about-collab-followers b {
+  color: #2d63fc;
+  font-size: clamp(22px, 2vw, 30px);
+  font-weight: 950;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 767px) {
+  .about-collab-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ===== v10: единый ритм отступов на мобайле/планшете (< 1024px) ===== */
+@media (max-width: 1023px) {
+  /* Одинаковый вертикальный отступ у всех блоков тёмной рамки */
+  .about-pin-inner,
+  #services,
+  #portfolio,
+  #workflow {
+    padding-top: 72px;
+    padding-bottom: 72px;
+  }
+
+  /* Одинаковый зазор между карточками во всех секциях */
+  .about-cards,
+  .work-grid,
+  .services-bento > .grid {
+    gap: 12px;
+  }
+
+  /* Отделяем группу карточек от текста чуть заметнее */
+  .about-grid {
+    gap: 28px;
+  }
+}
+
+/* ===== v12: кастомный видеоплеер в модалке галереи ===== */
+.vplayer {
+  position: absolute;
+  inset: 0;
+}
+
+.vplayer video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  cursor: pointer;
+}
+
+/* Большая кнопка Play по центру, стекло в стиле сайта */
+.vplayer-big {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 2;
+  display: grid;
+  width: 84px;
+  height: 84px;
+  place-items: center;
+  transform: translate(-50%, -50%);
+  border: 1px solid rgba(241, 248, 255, 0.28);
+  border-radius: 999px;
+  background: rgba(11, 11, 11, 0.55);
+  backdrop-filter: blur(14px);
+  color: #f1f8ff;
+  cursor: pointer;
+  transition: transform 240ms ease, border-color 240ms ease, background-color 240ms ease;
+}
+
+.vplayer-big svg {
+  width: 30px;
+  height: 30px;
+}
+
+.vplayer-big:hover,
+.vplayer-big:focus-visible {
+  transform: translate(-50%, -50%) scale(1.06);
+  border-color: rgba(45, 99, 252, 0.72);
+  background: rgba(45, 99, 252, 0.3);
+  outline: none;
+}
+
+/* Нижняя панель управления: стеклянная плашка */
+.vplayer-bar {
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  bottom: 14px;
+  z-index: 2;
+  display: flex;
+  min-height: 52px;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid rgba(241, 248, 255, 0.2);
+  border-radius: var(--radius-btn);
+  background: rgba(11, 11, 11, 0.62);
+  backdrop-filter: blur(16px);
+  padding: 8px 12px;
+}
+
+.vplayer-btn {
+  display: grid;
+  width: 36px;
+  height: 36px;
+  flex: 0 0 auto;
+  place-items: center;
+  border: 0;
+  border-radius: 9px;
+  background: transparent;
+  color: rgba(241, 248, 255, 0.82);
+  cursor: pointer;
+  transition: color 200ms ease, background-color 200ms ease;
+}
+
+.vplayer-btn:hover,
+.vplayer-btn:focus-visible {
+  color: #f1f8ff;
+  background: rgba(241, 248, 255, 0.1);
+  outline: none;
+}
+
+.vplayer-btn svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* Прогресс: тонкий трек + акцентная заливка + точка на ховере */
+.vplayer-progress {
+  position: relative;
+  flex: 1 1 auto;
+  height: 22px;
+  cursor: pointer;
+  touch-action: none;
+}
+
+.vplayer-progress::before {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 4px;
+  content: "";
+  transform: translateY(-50%);
+  border-radius: 999px;
+  background: rgba(241, 248, 255, 0.16);
+}
+
+.vplayer-progress-fill {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  height: 4px;
+  transform: translateY(-50%);
+  border-radius: 999px;
+  background: #2d63fc;
+}
+
+.vplayer-progress-fill::after {
+  position: absolute;
+  right: -5px;
+  top: 50%;
+  width: 10px;
+  height: 10px;
+  content: "";
+  transform: translateY(-50%);
+  border-radius: 999px;
+  background: #f1f8ff;
+  box-shadow: 0 0 0 3px rgba(45, 99, 252, 0.38);
+  opacity: 0;
+  transition: opacity 200ms ease;
+}
+
+.vplayer-progress:hover .vplayer-progress-fill::after {
+  opacity: 1;
+}
+
+.vplayer-time {
+  flex: 0 0 auto;
+  color: rgba(241, 248, 255, 0.72);
+  font-size: 12px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+/* На видео-слайде счётчик поднимаем над панелью плеера, чтобы не пересекались */
+.vplayer ~ .modal-slider-count {
+  bottom: 80px;
+}
+
+@media (max-width: 560px) {
+  .vplayer-bar {
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+    gap: 6px;
+    padding: 6px 10px;
+  }
+
+  .vplayer-big {
+    width: 64px;
+    height: 64px;
+  }
+
+  .vplayer-big svg {
+    width: 24px;
+    height: 24px;
+  }
+}

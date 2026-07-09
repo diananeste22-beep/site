@@ -1,115 +1,122 @@
+"use client";
+
+import { useEffect, useRef, useState, type CSSProperties } from "react";
+import {
+  motion,
+  useMotionTemplate,
+  useReducedMotion,
+  useScroll,
+  useTransform,
+  type MotionValue,
+} from "framer-motion";
+import EngCells from "@/components/eng-cells";
+
 type WorkflowStep = {
   number: string;
   title: string;
   description: string;
 };
 
-type WorkflowHorizontalScrollProps = {
+type WorkflowStackProps = {
   steps: WorkflowStep[];
 };
 
-const copy = {
-  label: "Процесс",
-  title: "Этапы работы",
-  description:
-    "Три шага без лишней шумихи: фиксируем задачу, собираем визуальный язык и доводим макет до передачи.",
-  cta: "Обсудить проект",
+const stepIcons = [
+  /* аналитика — прицел */
+  <svg key="i0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
+    <circle cx="12" cy="12" r="7.2" />
+    <circle cx="12" cy="12" r="2.6" />
+    <path d="M12 2.4v2.8M12 18.8v2.8M2.4 12h2.8M18.8 12h2.8" />
+  </svg>,
+  /* проектирование — перо */
+  <svg key="i1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round">
+    <path d="M4 20l1.4-4.6L16 4.8a2.1 2.1 0 013 3L8.4 18.4 4 20z" />
+    <path d="M13.6 7.2l3.2 3.2" />
+  </svg>,
+  /* реализация — готовность */
+  <svg key="i2" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <circle cx="12" cy="12" r="8.4" />
+    <path d="M8.4 12.3l2.5 2.5 4.7-5.2" />
+  </svg>,
+];
+
+type StackCardProps = {
+  step: WorkflowStep;
+  index: number;
+  total: number;
+  progress: MotionValue<number>;
+  reduced: boolean;
 };
 
-const workflowMeta = ["тз", "размеры", "safe zone", "стиль", "экспорт", "исходники"];
+function StackCard({ step, index, total, progress, reduced }: StackCardProps) {
+  /* Каждая карточка полностью перекрывает предыдущую: без «колоды» и уменьшения —
+     2-я целиком уходит под 3-ю, после чего страница идёт дальше обычным потоком */
+  const start = index / total;
+  const scale = useTransform(progress, [start, 1], [1, 1]);
+  const brightness = useTransform(progress, [start, 1], [1, 1]);
+  const filter = useMotionTemplate`brightness(${brightness})`;
 
-export default function WorkflowHorizontalScroll({ steps }: WorkflowHorizontalScrollProps) {
   return (
-    <section id="workflow" className="section-band workflow-section px-5 py-24 sm:px-8 lg:px-12">
-      <div className="mx-auto w-full max-w-[1360px]">
-        <div className="mb-10 grid gap-6 lg:grid-cols-[0.74fr_1fr] lg:items-end">
-          <div>
-            <p className="mb-4 text-sm font-extrabold uppercase leading-none text-[#2d63fc]">02 / {copy.label}</p>
-            <h2 className="max-w-xl text-5xl font-black leading-[1.04] tracking-[-0.02em] text-[#272727] sm:text-6xl lg:text-7xl">
-              {copy.title}
-            </h2>
-          </div>
-          <p className="max-w-[60ch] text-base font-medium leading-[1.55] text-[#272727]/62 lg:justify-self-end">
-            {copy.description}
+    <div className="step-sticky" style={{ zIndex: index + 1 } as CSSProperties}>
+      <motion.article className="step-card" style={reduced ? undefined : { scale, filter }}>
+        <EngCells seed={index + 11} />
+        <div className="step-card-topline">
+          <span className="panel-icon step-icon" aria-hidden="true">
+            {stepIcons[index]}
+          </span>
+        </div>
+        <div>
+          <h3>{step.title}</h3>
+          <p>{step.description}</p>
+        </div>
+        <div className="step-card-footer">
+        </div>
+      </motion.article>
+    </div>
+  );
+}
+
+export default function WorkflowHorizontalScroll({ steps }: WorkflowStackProps) {
+  const stackRef = useRef<HTMLDivElement>(null);
+  const reduced = useReducedMotion() ?? false;
+
+  /* На мобильном адаптиве стек отключён: карточки просто идут сверху вниз */
+  const [isCompact, setIsCompact] = useState(false);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 150px)");
+    const update = () => setIsCompact(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
+
+  const { scrollYProgress } = useScroll({
+    target: stackRef,
+    offset: ["start start", "end end"],
+  });
+
+  return (
+    <section id="workflow" className="section-band workflow-section steps-section px-5 py-24 sm:px-8 lg:px-12">
+      <div className="steps-container mx-auto w-full max-w-[1360px]">
+        <div className="steps-left">
+          <h2 className="steps-title">Этапы работы</h2>
+          <p className="steps-kicker"></p>
+          <p className="steps-description">
           </p>
         </div>
 
-        <div className="workflow-bento rounded-lg border border-[#272727]/10 bg-[#080808] p-3 text-[#f1f0ec] shadow-[0_24px_70px_rgba(39,39,39,0.12)] sm:p-4">
-          <div className="grid gap-3 lg:grid-cols-[1.1fr_0.9fr]">
-            <article className="workflow-bento-panel workflow-bento-panel-interactive group min-h-[440px] rounded-lg border border-white/10 bg-[#0b0b0b] p-6 transition duration-300 hover:border-[#2d63fc]/60 sm:p-8">
-              <div className="workflow-brief-scene" aria-hidden="true">
-                <div className="workflow-note-card workflow-note-card-main">
-                  <span>01</span>
-                  <strong>brief</strong>
-                </div>
-                <div className="workflow-note-card workflow-note-card-small">safe zone</div>
-                <div className="workflow-note-card workflow-note-card-line" />
-              </div>
-
-              <div className="mt-12 max-w-2xl sm:mt-16">
-                <p className="mb-4 text-xs font-black uppercase leading-none text-[#2d63fc]">{steps[0]?.number} / Старт</p>
-                <h3 className="text-3xl font-black leading-[1.06] tracking-[-0.02em] sm:text-5xl">
-                  {steps[0]?.title}
-                </h3>
-                <p className="mt-5 max-w-[62ch] text-base font-medium leading-[1.55] text-[#f1f0ec]/66 sm:text-lg">
-                  {steps[0]?.description}
-                </p>
-              </div>
-            </article>
-
-            <article className="workflow-bento-panel workflow-bento-panel-interactive group min-h-[440px] rounded-lg border border-white/10 bg-[#0b0b0b] p-6 transition duration-300 hover:border-[#2d63fc]/60 sm:p-8">
-              <div className="workflow-design-scene" aria-hidden="true">
-                <span className="workflow-design-dot" />
-                <span className="workflow-design-dot" />
-                <span className="workflow-design-dot" />
-                <div className="workflow-design-window">
-                  <i />
-                  <i />
-                  <i />
-                  <i />
-                </div>
-              </div>
-
-              <div className="mt-14 max-w-md sm:mt-20">
-                <p className="mb-4 text-xs font-black uppercase leading-none text-[#2d63fc]">{steps[1]?.number} / Стиль</p>
-                <h3 className="text-3xl font-black leading-[1.06] tracking-[-0.02em] sm:text-5xl">
-                  {steps[1]?.title}
-                </h3>
-                <p className="mt-5 text-base font-medium leading-[1.55] text-[#f1f0ec]/66 sm:text-lg">
-                  {steps[1]?.description}
-                </p>
-              </div>
-            </article>
-
-            <article className="workflow-bento-panel workflow-final-panel min-h-[350px] rounded-lg border border-white/10 bg-[#0b0b0b] p-6 sm:p-8 lg:col-span-2">
-              <div className="grid h-full gap-8 lg:grid-cols-[0.74fr_1.26fr] lg:items-end">
-                <div>
-                  <p className="mb-4 text-xs font-black uppercase leading-none text-[#2d63fc]">{steps[2]?.number} / Финал</p>
-                  <h3 className="max-w-xl text-3xl font-black leading-[1.06] tracking-[-0.02em] sm:text-5xl">
-                    {steps[2]?.title}
-                  </h3>
-                  <p className="mt-5 max-w-[58ch] text-base font-medium leading-[1.55] text-[#f1f0ec]/64">
-                    {steps[2]?.description}
-                  </p>
-                  <a
-                    href="#contacts"
-                    className="mt-7 inline-flex h-12 w-fit items-center gap-2 rounded-md bg-[#f1f0ec] px-4 text-xs font-extrabold text-[#272727] transition duration-300 hover:bg-[#2d63fc] hover:text-[#f1f0ec] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2d63fc]"
-                  >
-                    <span className="grid h-5 w-5 place-items-center rounded bg-[#2d63fc] text-[#f1f0ec]">{"↗"}</span>
-                    {copy.cta}
-                  </a>
-                </div>
-
-                <div className="workflow-meta-grid">
-                  {workflowMeta.map((item) => (
-                    <span key={item} className="workflow-meta-pill">
-                      {item}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </article>
-          </div>
+        <div className="steps-right" ref={stackRef} aria-label="Этапы работы">
+          {steps.map((step, index) => (
+            <StackCard
+              key={step.number}
+              step={step}
+              index={index}
+              total={steps.length}
+              progress={scrollYProgress}
+              reduced={reduced || isCompact}
+            />
+          ))}
         </div>
       </div>
     </section>
